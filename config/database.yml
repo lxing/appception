@@ -1,0 +1,24 @@
+login: &login
+  adapter: mysql
+  username: root
+  password: L34AyDaox
+  host: localhost
+  
+test:
+  <<: *login
+  database: sagi_test
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *login
+  database: sagi_dev
+  pool: 5
+  timeout: 5000
+
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3
+  pool: 5
+  timeout: 5000

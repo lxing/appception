@@ -2,6 +2,12 @@ Sagi::Application.routes.draw do
   resources :users do
     collection do
       get 'find'
+      get 'apps'
+      post 'apps'
+      get 'following'
+      get 'followers'
+      get 'follow'
+      get 'unfollow'
     end
   end
 

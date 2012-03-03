@@ -4,7 +4,6 @@ class App < ActiveRecord::Base
 
   def self.sync(google_id)
     begin
-      if App.exists?(:google_id => google_id)
       market_app = AndroidMarketApplication.new(google_id)
       app = App.new({
         :google_id => google_id,
@@ -17,4 +16,5 @@ class App < ActiveRecord::Base
       return nil
     end
   end
+
 end

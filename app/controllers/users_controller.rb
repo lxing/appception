@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def find
     users = []
     if params[:name].present?
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def apps
-    user = User.find_by_id(params[:user_id])
+    user = User.find_by_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     elsif request.post?
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def following
-    user = User.find_by_id(params[:user_id])
+    user = User.find_by_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     else
@@ -50,7 +51,7 @@ class UsersController < ApplicationController
   end
 
   def followers
-    user = User.find_by_id(params[:user_id])
+    user = User.find_by_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     else
@@ -60,7 +61,7 @@ class UsersController < ApplicationController
   end
 
   def follow
-    user = User.find_by_id(params[:user_id])
+    user = User.find_by_id(params[:id])
     target = User.find_by_id(params[:target_id])
     if user.nil? || target.nil?
       render :json => false, :status => STATUS[:INVALID]
@@ -71,7 +72,7 @@ class UsersController < ApplicationController
   end
 
   def unfollow
-    user = User.find_by_id(params[:user_id])
+    user = User.find_by_id(params[:id])
     target = User.find_by_id(params[:target_id])
     if user.nil? || target.nil?
       render :json => false, :status => STATUS[:INVALID]

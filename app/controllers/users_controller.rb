@@ -1,4 +1,16 @@
 class UsersController < ApplicationController
+  def new
+    user = User.new({
+      :name => params[:name],
+      :email => params[:email],
+      :fb_id => params[:fb_id]
+    })
+    if user.save
+      render :json => nil, :status => STATUS[:INVALID]
+    else
+      render :json => user, :status => STATUs[:OK]
+    end
+  end
 
   def find
     users = []

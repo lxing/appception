@@ -21,7 +21,7 @@ class AppsController < ApplicationController
 
   def following
     user = User.find_by_id(params[:user_id])
-    app = App.find_by_google_id(params[:app_id])
+    app = App.find_by_google_id(params[:app_id]) || App.sync(params[:app_id])
     if user.nil? || app.nil?
       render :json => [], :status => STATUS[:INVALID]
     else

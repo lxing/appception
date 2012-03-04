@@ -62,7 +62,7 @@ class UsersController < ApplicationController
               :description => "no description available",
               :icon => "https://lh3.ggpht.com/lkP4CK75qzystxLe5uXVDWFCs_mSbYSTGcpMzVCO7idlECDiv3Yl5P5HcZEVoL5yrxmd=w124"
             })
-            updated_apps << if app.save
+            updated_apps << app if app.save
           end
         end
 

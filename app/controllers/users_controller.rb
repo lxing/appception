@@ -74,22 +74,26 @@ class UsersController < ApplicationController
 
   def follow
     user = User.find_by_id(params[:id])
-    target = User.find_by_id(params[:target_id])
-    if user.nil? || target.nil?
+    targets = User.find_all_by_id(params[:target_ids])
+    if user.nil?
       render :json => false, :status => STATUS[:INVALID]
     else
-      user.follow(target)
+      targets.each do |target|
+        user.follow(target)
+      end
       render :json => true, :status => STATUS[:OK]
     end
   end
 
   def unfollow
     user = User.find_by_id(params[:id])
-    target = User.find_by_id(params[:target_id])
+    targets = User.find_all_by_id(params[:target_ids])
     if user.nil? || target.nil?
       render :json => false, :status => STATUS[:INVALID]
     else
-      user.unfollow(target)
+      targets.each do |target|
+        user.follow(target)
+      end
       render :json => true, :status => STATUS[:OK]
     end
   end

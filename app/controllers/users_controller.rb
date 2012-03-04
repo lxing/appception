@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     else
-      google_ids = params[:google_ids]
+      google_ids = params[:app_ids]
       if google_ids.blank?
         render :json => [], :status => STATUS[:INVALID]
       else

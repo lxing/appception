@@ -15,8 +15,8 @@ Sagi::Application.routes.draw do
 
   resources :apps do
     collection do
-    end
-    member do
+      get 'topapps'
+      get 'following'
     end
   end
 

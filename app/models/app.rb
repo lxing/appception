@@ -2,6 +2,8 @@ class App < ActiveRecord::Base
   validates :name, :presence => true
   validates :google_id, :presence => true, :uniqueness => true
 
+  has_and_belongs_to_many :users
+
   def self.sync(google_id)
     begin
       market_app = AndroidMarketApplication.new(google_id)

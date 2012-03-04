@@ -30,9 +30,16 @@ class UsersController < ApplicationController
     user = User.find_by_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
-    elsif request.get?
+    else
       render :json => user.apps, :status => STATUS[:OK]
-    elsif request.post?
+    end
+  end
+
+  def setapps
+    user = User.find_by_id(params[:id])
+    if user.nil?
+      render :json => [], :status => STATUS[:INVALID]
+    else
       google_ids = params[:google_ids]
       if google_ids.blank?
         render :json => [], :status => STATUS[:INVALID]
@@ -75,7 +82,7 @@ class UsersController < ApplicationController
 
   def follow
     user = User.find_by_id(params[:id])
-    targets = User.find_all_by_emails(params[:emails])
+    targets = User.find_all_by_fb_id(params[:fb_ids])
     if user.nil?
       render :json => false, :status => STATUS[:INVALID]
     else
@@ -88,7 +95,7 @@ class UsersController < ApplicationController
 
   def unfollow
     user = User.find_by_id(params[:id])
-    targets = User.find_all_by_email(params[:emails])
+    targets = User.find_all_by_fb_id(params[:fb_ids])
     if user.nil?
       render :json => false, :status => STATUS[:INVALID]
     else

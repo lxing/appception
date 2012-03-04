@@ -6,7 +6,7 @@ Sagi::Application.routes.draw do
     end
     member do
       get 'apps'
-      post 'apps'
+      get 'setapps'
       get 'following'
       get 'followers'
       get 'follow'

@@ -41,14 +41,28 @@ class UsersController < ApplicationController
       render :json => [], :status => STATUS[:INVALID]
     else
       google_ids = params[:app_ids]
+      names = params[:names]
+
       if google_ids.blank?
         render :json => [], :status => STATUS[:INVALID]
       else
         updated_apps = []
-        google_ids.each do |google_id|
+
+        google_ids.zip(names).each do |pair|
+          google_id = pair[0]
+          name = pair[1]
+
           app = App.find_by_google_id(google_id) || App.sync(google_id)
           if app.present?
             updated_apps << app
+          else
+            app = App.new({
+              :google_id => google_id
+              :name => name,
+              :description => "no description available"
+              :icon => "https://lh3.ggpht.com/lkP4CK75qzystxLe5uXVDWFCs_mSbYSTGcpMzVCO7idlECDiv3Yl5P5HcZEVoL5yrxmd=w124"
+            })
+            updated_apps << if app.save
           end
         end
 

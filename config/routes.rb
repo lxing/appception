@@ -1,6 +1,7 @@
 Sagi::Application.routes.draw do
   resources :users do 
     collection do
+      post 'new'
       get 'find'
     end
     member do

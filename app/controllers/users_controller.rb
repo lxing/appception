@@ -1,14 +1,15 @@
 class UsersController < ApplicationController
   def new
+    y params
     user = User.new({
       :name => params[:name],
       :email => params[:email],
       :fb_id => params[:fb_id]
     })
     if user.save
-      render :json => nil, :status => STATUS[:INVALID]
+      render :json => user, :status => STATUS[:OK]
     else
-      render :json => user, :status => STATUs[:OK]
+      render :json => nil, :status => STATUS[:INVALID]
     end
   end
 
@@ -74,7 +75,7 @@ class UsersController < ApplicationController
 
   def follow
     user = User.find_by_id(params[:id])
-    targets = User.find_all_by_id(params[:target_ids])
+    targets = User.find_all_by_emails(params[:emails])
     if user.nil?
       render :json => false, :status => STATUS[:INVALID]
     else
@@ -87,8 +88,8 @@ class UsersController < ApplicationController
 
   def unfollow
     user = User.find_by_id(params[:id])
-    targets = User.find_all_by_id(params[:target_ids])
-    if user.nil? || target.nil?
+    targets = User.find_all_by_email(params[:emails])
+    if user.nil?
       render :json => false, :status => STATUS[:INVALID]
     else
       targets.each do |target|

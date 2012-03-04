@@ -29,9 +29,9 @@ class UsersController < ApplicationController
     user = User.find_by_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
-    elsif request.post?
-      render :json => user.apps, :status => STATUS[:OK]
     elsif request.get?
+      render :json => user.apps, :status => STATUS[:OK]
+    elsif request.post?
       google_ids = params[:google_ids]
       if google_ids.blank?
         render :json => [], :status => STATUS[:INVALID]

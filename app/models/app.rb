@@ -5,6 +5,7 @@ class App < ActiveRecord::Base
   has_and_belongs_to_many :users
 
   def self.sync(google_id)
+    return if App.exists?(:google_id => google_id)
     begin
       market_app = AndroidMarketApplication.new(google_id)
       app = App.new({

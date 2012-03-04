@@ -57,9 +57,9 @@ class UsersController < ApplicationController
             updated_apps << app
           else
             app = App.new({
-              :google_id => google_id
+              :google_id => google_id,
               :name => name,
-              :description => "no description available"
+              :description => "no description available",
               :icon => "https://lh3.ggpht.com/lkP4CK75qzystxLe5uXVDWFCs_mSbYSTGcpMzVCO7idlECDiv3Yl5P5HcZEVoL5yrxmd=w124"
             })
             updated_apps << if app.save

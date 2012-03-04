@@ -11,12 +11,12 @@ Sagi::Application.routes.draw do
       get 'followers'
       get 'follow'
       get 'unfollow'
+      get 'topapps'
     end
   end
 
   resources :apps do
     collection do
-      get 'topapps'
       get 'following'
     end
   end

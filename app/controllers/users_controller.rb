@@ -1,4 +1,26 @@
 class UsersController < ApplicationController
+  def topapps
+    user = User.find_by_fb_id(params[:id])
+    if user.nil?
+      render :json => [], :status => STATUS[:INVALID]
+    else
+      existing = Set.new(user.apps)
+      app_weights = Hash.new(0)
+      user.following.each do |followed|
+        followed.apps.each do |app|
+          app_weights[app] += 1 unless existing.include?(app)
+        end
+      end
+
+      topapps = app_weights.to_a
+      topapps = topapps.sort{|a,b| b[1] - a[1]}
+
+      y topapps
+
+      render :json => topapps, :status => STATUS[:OK]
+    end
+  end
+
   def new
     y params
     user = User.new({
@@ -69,7 +91,7 @@ class UsersController < ApplicationController
         user.apps = updated_apps
         updated_app_ids = updated_apps.map{|app| app.id}
 
-        render :json => updated_app_ids, :status => STATUS[:OK]
+        render :json => updated_apps, :status => STATUS[:OK]
       end
     end
   end

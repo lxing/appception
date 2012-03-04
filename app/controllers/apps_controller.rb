@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
   def topapps
-    user = User.find_by_id(params[:user_id])
+    user = User.find_by_fb_id(params[:user_id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     else
@@ -20,7 +20,7 @@ class AppsController < ApplicationController
   end
 
   def following
-    user = User.find_by_id(params[:user_id])
+    user = User.find_by_fb_id(params[:user_id])
     app = App.find_by_google_id(params[:app_id]) || App.sync(params[:app_id])
     if user.nil? || app.nil?
       render :json => [], :status => STATUS[:INVALID]

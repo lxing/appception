@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def apps
-    user = User.find_by_id(params[:id])
+    user = User.find_by_fb_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     else
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   def setapps
-    user = User.find_by_id(params[:id])
+    user = User.find_by_fb_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     else
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
   end
 
   def following
-    user = User.find_by_id(params[:id])
+    user = User.find_by_fb_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     else
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
   end
 
   def followers
-    user = User.find_by_id(params[:id])
+    user = User.find_by_fb_id(params[:id])
     if user.nil?
       render :json => [], :status => STATUS[:INVALID]
     else
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
   end
 
   def follow
-    user = User.find_by_id(params[:id])
+    user = User.find_by_fb_id(params[:id])
     targets = User.find_all_by_fb_id(params[:fb_ids])
     if user.nil?
       render :json => false, :status => STATUS[:INVALID]
@@ -94,7 +94,7 @@ class UsersController < ApplicationController
   end
 
   def unfollow
-    user = User.find_by_id(params[:id])
+    user = User.find_by_fb_id(params[:id])
     targets = User.find_all_by_fb_id(params[:fb_ids])
     if user.nil?
       render :json => false, :status => STATUS[:INVALID]

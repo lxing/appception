@@ -15,8 +15,6 @@ class UsersController < ApplicationController
       topapps = app_weights.to_a
       topapps = topapps.sort{|a,b| b[1] - a[1]}
 
-      y topapps
-
       render :json => topapps, :status => STATUS[:OK]
     end
   end
